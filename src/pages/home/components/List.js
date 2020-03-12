@@ -16,6 +16,7 @@ class List extends Component{
           <ListInfo>
             <h3 className='title'>{item.get('title')}</h3>
             <p className='dsc'>{item.get('shortCon')}</p>
+            
           </ListInfo>
         </ListItem>
       )

@@ -88,10 +88,77 @@ export const RecommendItem=styled.div`
   background-size:contain;
 `
 export const WritterWrapper= styled.div`
-  width:278px;
-  border:1px solid #dcdcdc;
+  width:280px;
+  overflow: visible;
+`
+
+export const WritterCode=styled.div`
+  width : 280px;
+  border: 1px solid #dcdcdc;
   border-radius: 3px;
-  height: 300px;
-  line-height:300px;
-  text-align:center;
+  height: 60px;
+  padding:10px;
+  .pic{
+    width:60px;
+    height:60px;
+    float:left;
+  }
+  .text{
+    float: left;
+    margin-left:20px;
+    line-height:20px;
+  }
+  .title{
+    font-size:15px;
+    color:#333;
+  }
+  .content{
+    font-size:13px;
+    color:#999;
+  }
+`
+
+export const RecommendWritter= styled.div`
+  font-size:14px;
+  color: #969696;
+  margin-top:50px;
+  margin-bottom: 15px;
+  .switch{
+    float:right;
+  }
+`
+
+export const WritterItem=styled.div`
+  height: 50px;
+  width : 280px;
+  margin-top:10px;
+  .pic{
+    float:left;
+    width:48px;
+    height:48px;
+    border-radius:24px;
+  }
+  .title{
+    display:inline-block;
+    font-size:14px;
+    padding-top:5px;
+    margin-left:10px;
+    line-height:25px;
+  }
+  .subscribe{
+    font-size:13px;
+    padding-top:10px;
+    color:#42c02e;
+    float:right;
+  }
+  .like{
+    font-size:right;
+    margin-top:2px;
+    font-size:12px;
+    color:#969696;
+    margin-left:58px;
+  }
+
+
+
 `

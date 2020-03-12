@@ -33,7 +33,9 @@ class Home extends Component{
         type: 'change_home_data',
         topicList : result.topicList,
         contentList : result.contentList,
-        RecommendImg : result.RecommendImg
+        RecommendImg : result.RecommendImg,
+        WritterList: result.WritterList,
+        totalPage: 2
       }
      this.props.changeHomeData(action)
     })
