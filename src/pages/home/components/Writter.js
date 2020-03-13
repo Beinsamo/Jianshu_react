@@ -3,7 +3,7 @@ import {
   WritterWrapper, WritterCode, RecommendWritter,WritterItem
 } from '../styled';
 import {connect} from 'react-redux';
-
+import {listSwitch} from '../store/action_creators'
 
 class Writter extends Component{
   render(){
@@ -47,8 +47,6 @@ class Writter extends Component{
 }
 }
 
-
-
 const mapState=(state)=>{
    return{
     writterlist : state.get('home').get('WritterList'),
@@ -61,12 +59,7 @@ const mapState=(state)=>{
 const mapDispatch=(dispatch)=>{
   return{
   listSwitch(page,totalpage){
-    const action={
-      type:'list_switch',
-      page:page,
-      totalPage: totalpage
-    }
-  dispatch(action)
+     dispatch(listSwitch(page,totalpage))
   }
 }}
 

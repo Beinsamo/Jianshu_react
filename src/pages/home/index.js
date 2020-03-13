@@ -5,11 +5,17 @@ import List from './components/List'
 import Writter from './components/Writter'
 import {connect} from 'react-redux';
 import {
-  HomeWrapper,HomeRight,HomeLeft
+  HomeWrapper,HomeRight,HomeLeft,BackTop
 } from './styled.js';
 import axios from 'axios';
+import {getHomeData,toggleTopshow,toggleTopOff} from './store/action_creators';
 
 class Home extends Component{
+
+  handelScrollTop(){
+    window.scrollTo(0,0);
+  }
+
   render(){
     return(
     <HomeWrapper>
@@ -22,32 +28,43 @@ class Home extends Component{
       <Recommend />
       <Writter />
     </HomeRight>
+    {this.props.showScroll ? <BackTop onClick={this.handelScrollTop.bind(this)}>Top</BackTop> : null}
     </HomeWrapper>
   )
   }
 
   componentDidMount(){
-    axios.get('/api/home.json').then((res)=>{
-      const result=res.data.data;
-      const action={
-        type: 'change_home_data',
-        topicList : result.topicList,
-        contentList : result.contentList,
-        RecommendImg : result.RecommendImg,
-        WritterList: result.WritterList,
-        totalPage: 2
-      }
-     this.props.changeHomeData(action)
-    })
-
+    this.props.changeHomeData();
+    this.bindEvent();
+    }
+  componentWillUnmount(){
+    window.removeEventListener('scroll',this.props.changeScrollToShow)
   }
+
+  bindEvent(){
+    window.addEventListener('scroll',this.props.changeScrollToShow)
+  }
+
 }
 
-const mapDispatch=(dispatch)=>({
-  changeHomeData(action){
-    dispatch(action)
-  }
+const mapState=(state)=>({
+  showScroll: state.getIn(['home','showScroll'])
 })
 
+const mapDispatch=(dispatch)=>({
+  changeHomeData(){
+     dispatch(getHomeData())
+   },
+  changeScrollToShow(){
+    if(document.documentElement.scrollTop>400){
+      dispatch(toggleTopshow());
+    }
+    else{
+      dispatch(toggleTopOff());
+    }
 
-export default connect(null,mapDispatch)(Home);
+  }
+  })
+
+
+export default connect(mapState,mapDispatch)(Home);

@@ -26,6 +26,7 @@ class Header extends Component{
             classNames='slide'
            >
            <Navsearch
+             ref={(searchbox)=>(this.box=searchbox)}
              onFocus={()=>handelInputFocus(list)}
              onBlur={handelInputBlur}
              className={focused ? 'focused' : ''}>
@@ -43,12 +44,12 @@ class Header extends Component{
 )}
 
 returnSearchInfo(){
-  const {focused,list, page,totalPage,mouseIn,handleMouseEnter,handleMouseLeave, handleSwitch}=this.props;
+  const {focused,list, page,totalPage,mouseIn,handleMouseEnter,handleMouseLeave, handleSwitch, giveSearchInfo}=this.props;
   const newList=list.toJS();
   const pageList=[];
-  for (var i = page*5; i < (page+1)*5; i++) {
+  for (let i = page*5; i < (page+1)*5; i++) {
     pageList.push(
-    <SearchInfoItem key={newList[i]}>{newList[i]}</SearchInfoItem>
+    <SearchInfoItem key={newList[i]} onClick={()=>giveSearchInfo(newList[i],this.box)}>{newList[i]}</SearchInfoItem>
   )}
   if(focused || mouseIn){
     return(
@@ -112,6 +113,10 @@ const mapDispatchToProps=(dispatch)=>{
       }
       spin.style.transform='rotate('+(originAngle+360)+'deg)';
       dispatch(actionCreators.handle_switch(page,totalPage));
+    },
+    giveSearchInfo(text,key){
+      key.setAttribute('value','');
+      key.setAttribute('value',text);
     }
   }
 }
