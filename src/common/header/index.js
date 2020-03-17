@@ -6,18 +6,26 @@ import {
 } from './style';
 import Piclogo from './logo.png';
 import {connect} from 'react-redux';
-import {actionCreators} from './header_store'
+import {actionCreators} from './header_store';
+import {Link} from 'react-router-dom';
+import {actionCreators as loginActionCreators} from '../../pages/login/store';
 
 class Header extends Component{
   render(){
-    const{focused, handelInputFocus, handelInputBlur,list}=this.props;
+    const{focused, handelInputFocus, login,logout, handelInputBlur,list}=this.props;
   return(
       <HeaderWrapper>
+       <Link to='/'>
        <Logo href='/'><Pic src={Piclogo} /></Logo>
+       </Link>
        <Nav>
          <NavItem className='left active'>Homepage</NavItem>
          <NavItem className='left'>App download</NavItem>
-         <NavItem className='right login'>login</NavItem>
+         {
+           login ? <NavItem onClick={logout} className='right login'>Logout</NavItem> :
+                   <Link to='/login'><NavItem className='right login'>login</NavItem></Link>
+         }
+
          <NavItem className='right'><i className='iconfont'>&#xe636;</i></NavItem>
          <SearchWrapper>
            <CSSTransition
@@ -83,7 +91,8 @@ const mapStateToProps=(state)=>{
   focused : state.get('header').get('focused'),//=state.getIn(['header','focused'])
   page: state.getIn(['header','page']),
   totalPage: state.getIn(['header','totalPage']),
-  mouseIn: state.getIn(['header','mouseIn'])
+  mouseIn: state.getIn(['header','mouseIn']),
+  login: state.getIn(['login','login']),
  }
 }
 
@@ -117,6 +126,9 @@ const mapDispatchToProps=(dispatch)=>{
     giveSearchInfo(text,key){
       key.setAttribute('value','');
       key.setAttribute('value',text);
+    },
+    logout(){
+      dispatch(loginActionCreators.logout())
     }
   }
 }

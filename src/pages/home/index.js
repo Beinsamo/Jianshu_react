@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import Topic from './components/Topic'
 import Recommend from './components/Recommend'
 import List from './components/List'
@@ -10,7 +10,8 @@ import {
 import axios from 'axios';
 import {getHomeData,toggleTopshow,toggleTopOff} from './store/action_creators';
 
-class Home extends Component{
+class Home extends PureComponent{
+
 
   handelScrollTop(){
     window.scrollTo(0,0);

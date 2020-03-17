@@ -1,11 +1,11 @@
-import React, {Component} from 'react';
+import React, {PureComponent, Suspense, Spinner} from 'react';
 import {
   WritterWrapper, WritterCode, RecommendWritter,WritterItem
 } from '../styled';
 import {connect} from 'react-redux';
 import {listSwitch} from '../store/action_creators'
 
-class Writter extends Component{
+class Writter extends PureComponent{
   render(){
     const {ready}=this.props;
     return(
@@ -20,6 +20,9 @@ class Writter extends Component{
         <div className='switch' onClick={()=>this.props.listSwitch(this.props.writterpage,this.props.totalpage)}>
         <i className='iconfont spin'>&#xe851;</i>Switch
         </div>
+        <Suspense fallback={<Spinner />}>
+          {this.writterList.bind(this)}
+        </Suspense>
         {ready === true ? this.writterList(): null}
       </RecommendWritter>
 
